@@ -1,11 +1,19 @@
 import express, { Request, Response, Application } from "express";
-const app: Application = express();
+import cookieParser from "cookie-parser";
+import cors from "cors";
 
 const PORT = process.env.PORT || 8000;
 
-app.get("/", (req: Request, res: Response): void => {
-  res.send("Hello Typescript with Node.js!");
-});
+const app: Application = express();
+
+app.use(express.json());
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    credentials: true,
+  })
+);
 
 app.listen(PORT, (): void => {
   console.log(`Server Running here 👉 https://localhost:${PORT}`);
