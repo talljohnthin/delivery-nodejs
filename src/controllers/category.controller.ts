@@ -7,6 +7,7 @@ import {
   getCategoryById,
   updateCategoryById,
 } from "../services/category.services";
+import { ICategory } from "../types";
 
 export const getAllCategories = async (
   req: express.Request,
@@ -57,9 +58,9 @@ export const updateCategory = async (
 ) => {
   try {
     const { id } = req.params;
-    const { title } = req.body;
+    const { title, imageUrl } = req.body as ICategory;
 
-    if (!title) {
+    if (!title || !imageUrl) {
       return res.sendStatus(400);
     }
 

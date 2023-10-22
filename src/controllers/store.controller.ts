@@ -7,6 +7,7 @@ import {
   getStoreById,
   updateStoreById,
 } from "../services/store.services";
+import { IStore } from "../types";
 
 export const getAllStores = async (
   req: express.Request,
@@ -54,9 +55,9 @@ export const updateStore = async (
 ) => {
   try {
     const { id } = req.params;
-    const { title } = req.body;
+    const { name, imageUrl, address } = req.body as IStore;
 
-    if (!title) {
+    if (!name || !imageUrl || !address) {
       return res.sendStatus(400);
     }
 

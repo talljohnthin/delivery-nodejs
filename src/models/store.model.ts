@@ -2,9 +2,10 @@ import mongoose from "mongoose";
 
 const StoreSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true },
+    name: { type: String, required: true },
     phone: { type: Number },
-    imageUrl: { type: String },
+    imageUrl: { type: String, required: true },
+    address: { type: String, required: true },
   },
   { timestamps: true, versionKey: false }
 );

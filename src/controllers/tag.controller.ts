@@ -7,6 +7,7 @@ import {
   getTagById,
   updateTagById,
 } from "../services/tag.services";
+import { IStore, ITag } from "../types";
 
 export const getAllTags = async (
   req: express.Request,
@@ -54,9 +55,9 @@ export const updateTag = async (
 ) => {
   try {
     const { id } = req.params;
-    const { title } = req.body;
+    const { title, imageUrl } = req.body as ITag;
 
-    if (!title) {
+    if (!title || !imageUrl) {
       return res.sendStatus(400);
     }
 
