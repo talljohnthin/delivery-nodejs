@@ -25,3 +25,10 @@ export interface ITag {
   title: string;
   imageUrl: string;
 }
+
+export interface IOrder {
+  userId: string;
+  total: string;
+  products: IProduct[];
+  status: "Active" | "Completed" | "Canceled";
+}
