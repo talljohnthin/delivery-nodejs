@@ -9,12 +9,6 @@ export const getNewAccessToken = async (
   req: express.Request,
   res: express.Response
 ) => {
-  const { error } = refreshTokenBodyValidation(req.body);
-  if (error)
-    return res
-      .status(400)
-      .json({ error: true, message: error.details[0].message });
-
   verifyRefreshToken(req.cookies.refreshToken)
     .then(({ tokenDetails }) => {
       const payload = { _id: tokenDetails._id };
@@ -44,7 +38,9 @@ export const getNewAccessToken = async (
         message: "Access token created successfully",
       });
     })
-    .catch((err) => res.status(400).json(err));
+    .catch((err) =>
+      res.status(400).json({ error: true, message: err.message })
+    );
 };
 
 // logout
