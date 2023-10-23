@@ -2,8 +2,6 @@ import express, { Application } from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import mongoose from "mongoose";
-import swaggerUi from "swagger-ui-express";
-import swaggerJsdoc from "swagger-jsdoc";
 import "dotenv/config";
 
 import router from "./routers";
@@ -33,9 +31,6 @@ const options = {
   },
   apis: ["./src/routers/*.ts"],
 };
-
-const swagDoc = swaggerJsdoc(options);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swagDoc));
 
 mongoose.set("strictQuery", false);
 mongoose
