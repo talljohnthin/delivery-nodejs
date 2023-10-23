@@ -32,3 +32,10 @@ export interface IOrder {
   products: IProduct[];
   status: "Active" | "Completed" | "Canceled";
 }
+
+export interface IUser {
+  name: string;
+  phone: number;
+  email?: string;
+  address?: string;
+}

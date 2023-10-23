@@ -9,6 +9,7 @@ import {
   completeOrderById,
 } from "../services/order.services";
 import { IOrder } from "../types";
+import { getUserById } from "../services/user.services";
 
 export const getAllOrders = async (
   req: express.Request,
@@ -26,7 +27,9 @@ export const getAllOrders = async (
 
 export const addOrder = async (req: express.Request, res: express.Response) => {
   try {
-    let { userId, total, products, status } = req.body as IOrder;
+    let { userId, total, products } = req.body as IOrder;
+
+    await getUserById(userId);
 
     if (!userId) {
       return res.status(400).json({
