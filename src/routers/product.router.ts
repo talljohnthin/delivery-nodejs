@@ -1,4 +1,5 @@
 import express from "express";
+import isAuthenticated from "../middleware/isAuthenticated";
 
 import {
   getAllProducts,
@@ -9,7 +10,7 @@ import {
 
 export default (router: express.Router) => {
   // router.get('/users', isAuthenticated, getAllUsers);
-  router.get("/products", getAllProducts);
+  router.get("/products", isAuthenticated, getAllProducts);
   router.post("/product", addProduct);
   router.delete("/product/:id", deleteProduct);
   router.patch("/product/:id", updateProduct);

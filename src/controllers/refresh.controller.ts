@@ -15,17 +15,32 @@ export const getNewAccessToken = async (
       .status(400)
       .json({ error: true, message: error.details[0].message });
 
-  verifyRefreshToken(req.body.refreshToken)
+  verifyRefreshToken(req.cookies.refreshToken)
     .then(({ tokenDetails }) => {
-      const payload = { _id: tokenDetails._id, roles: tokenDetails.roles };
+      const payload = { _id: tokenDetails._id };
+
       const accessToken = jwt.sign(
         payload,
         process.env.ACCESS_TOKEN_PRIVATE_KEY as string,
         { expiresIn: "15m" }
       );
+
+      const refreshToken = jwt.sign(
+        payload,
+        process.env.REFRESH_TOKEN_PRIVATE_KEY as string,
+        { expiresIn: "30d" }
+      );
+
+      res.cookie("accessToken", accessToken, {
+        httpOnly: true,
+      });
+
+      res.cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+      });
+
       res.status(200).json({
         error: false,
-        accessToken,
         message: "Access token created successfully",
       });
     })
@@ -39,21 +54,23 @@ export const deleteToken = async (
 ) => {
   try {
     const { error } = refreshTokenBodyValidation(req.body);
-    if (error)
+    if (error) {
       return res
         .status(400)
         .json({ error: true, message: error.details[0].message });
+    }
 
     const userToken = await UserTokenModel.findOne({
-      token: req.body.refreshToken,
+      token: req.cookies.refreshToken,
     });
 
-    if (!userToken)
+    if (!userToken) {
       return res
         .status(200)
         .json({ error: false, message: "Logged Out Sucessfully" });
+    }
 
-    //await userToken.remove();
+    await userToken.deleteOne();
 
     res.status(200).json({ error: false, message: "Logged Out Sucessfully" });
   } catch (err) {

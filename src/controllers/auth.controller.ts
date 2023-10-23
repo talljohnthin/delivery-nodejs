@@ -66,10 +66,16 @@ export const login = async (req: express.Request, res: express.Response) => {
 
     const { accessToken, refreshToken } = await generateTokens(user);
 
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+    });
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+    });
+
     res.status(200).json({
       error: false,
-      accessToken,
-      refreshToken,
       message: "Logged in sucessfully",
     });
   } catch (err) {
