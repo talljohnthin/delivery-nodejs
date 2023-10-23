@@ -6,11 +6,11 @@ import {
   updateStore,
   addStore,
 } from "../controllers/store.controller";
+import isAuthenticated from "../middleware/isAuthenticated";
 
 export default (router: express.Router) => {
-  // router.get('/users', isAuthenticated, getAllUsers);
   router.get("/Stores", getAllStores);
-  router.post("/Store", addStore);
-  router.delete("/Store/:id", deleteStore);
-  router.patch("/Store/:id", updateStore);
+  router.post("/Store", isAuthenticated, addStore);
+  router.delete("/Store/:id", isAuthenticated, deleteStore);
+  router.patch("/Store/:id", isAuthenticated, updateStore);
 };

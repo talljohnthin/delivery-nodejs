@@ -1,5 +1,5 @@
 import express from "express";
-
+import isAuthenticated from "../middleware/isAuthenticated";
 import {
   getAllOrders,
   updateOrder,
@@ -9,10 +9,9 @@ import {
 } from "../controllers/order.controller";
 
 export default (router: express.Router) => {
-  // router.get('/users', isAuthenticated, getAllUsers);
-  router.get("/orders", getAllOrders);
-  router.post("/order", addOrder);
-  router.patch("/order/:id", updateOrder);
-  router.patch("/order/cancel/:id", cancelOrder);
-  router.patch("/order/complete/:id", completeOrder);
+  router.get("/orders", isAuthenticated, getAllOrders);
+  router.post("/order", isAuthenticated, addOrder);
+  router.patch("/order/:id", isAuthenticated, updateOrder);
+  router.patch("/order/cancel/:id", isAuthenticated, cancelOrder);
+  router.patch("/order/complete/:id", isAuthenticated, completeOrder);
 };

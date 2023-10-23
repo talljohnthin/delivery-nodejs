@@ -6,11 +6,11 @@ import {
   updateTag,
   addTag,
 } from "../controllers/tag.controller";
+import isAuthenticated from "../middleware/isAuthenticated";
 
 export default (router: express.Router) => {
-  // router.get('/users', isAuthenticated, getAllUsers);
   router.get("/tags", getAllTags);
-  router.post("/tag", addTag);
-  router.delete("/tag/:id", deleteTag);
-  router.patch("/tag/:id", updateTag);
+  router.post("/tag", isAuthenticated, addTag);
+  router.delete("/tag/:id", isAuthenticated, deleteTag);
+  router.patch("/tag/:id", isAuthenticated, updateTag);
 };
