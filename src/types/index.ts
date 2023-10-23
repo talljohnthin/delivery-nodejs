@@ -36,6 +36,7 @@ export interface IOrder {
 export interface IUser {
   name: string;
   phone: number;
+  password: string;
   email?: string;
   address?: string;
 }

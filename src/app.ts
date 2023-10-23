@@ -21,17 +21,6 @@ app.use(
 
 app.use("/api/", router());
 
-const options = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "Delivery",
-      version: "1.0.0",
-    },
-  },
-  apis: ["./src/routers/*.ts"],
-};
-
 mongoose.set("strictQuery", false);
 mongoose
   .connect(process.env.DATABASE || "")
