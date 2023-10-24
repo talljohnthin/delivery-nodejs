@@ -58,10 +58,17 @@ export const updateProduct = async (
 ) => {
   try {
     const { id } = req.params;
-    const { name, imageUrl, storeId, categoryId, tagId, price } =
+    const { name, image, storeId, categoryId, tagId, price } =
       req.body as IProduct;
 
-    if (!name || !imageUrl || !price || !storeId || !categoryId || !tagId) {
+    if (
+      !name ||
+      !image.public_id ||
+      !price ||
+      !storeId ||
+      !categoryId ||
+      !tagId
+    ) {
       return res.sendStatus(400);
     }
 

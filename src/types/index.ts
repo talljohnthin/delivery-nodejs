@@ -1,14 +1,14 @@
 export interface IStore {
   name: string;
   phone?: number;
-  imageUrl: string;
+  image: IImage;
   address: string;
 }
 
 export interface IProduct {
   name: String;
   price: Number;
-  imageUrl: String;
+  image: IImage;
   description?: String;
   preperationTime?: Number;
   storeId: String;
@@ -18,12 +18,12 @@ export interface IProduct {
 
 export interface ICategory {
   title: string;
-  imageUrl: string;
+  image: IImage;
 }
 
 export interface ITag {
   title: string;
-  imageUrl: string;
+  image: IImage;
 }
 
 export interface IOrder {
@@ -39,4 +39,10 @@ export interface IUser {
   password: string;
   email?: string;
   address?: string;
+  photo?: IImage;
+}
+
+export interface IImage {
+  public_id: string;
+  url: string;
 }

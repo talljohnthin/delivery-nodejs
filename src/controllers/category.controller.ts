@@ -58,9 +58,9 @@ export const updateCategory = async (
 ) => {
   try {
     const { id } = req.params;
-    const { title, imageUrl } = req.body as ICategory;
+    const { title, image } = req.body as ICategory;
 
-    if (!title || !imageUrl) {
+    if (!title || !image.public_id) {
       return res.sendStatus(400);
     }
 

@@ -24,7 +24,7 @@ export const getAllTags = async (
 };
 
 export const addTag = async (req: express.Request, res: express.Response) => {
-  const { title, imageUrl } = req.body;
+  const { title, image } = req.body as ITag;
   try {
     if (!title) {
       return res
@@ -32,7 +32,7 @@ export const addTag = async (req: express.Request, res: express.Response) => {
         .json({ error: true, message: "Please add a title" });
     }
 
-    if (!imageUrl) {
+    if (!image.public_id) {
       return res.status(400).json({ error: true, message: "Please add image" });
     }
 
@@ -66,7 +66,7 @@ export const updateTag = async (
 ) => {
   try {
     const { id } = req.params;
-    const { title, imageUrl } = req.body as ITag;
+    const { title, image } = req.body as ITag;
 
     if (!title) {
       return res
@@ -74,7 +74,7 @@ export const updateTag = async (
         .json({ error: true, message: "Please add a title" });
     }
 
-    if (!imageUrl) {
+    if (!image.public_id) {
       return res.status(400).json({ error: true, message: "Please add image" });
     }
 

@@ -7,6 +7,7 @@ import order from "./order.router";
 import user from "./user.router";
 import auth from "./auth.router";
 import refresh from "./refresh.router";
+import image from "./image.router";
 
 const router = express.Router();
 
@@ -19,6 +20,7 @@ export default (): express.Router => {
   user(router);
   auth(router);
   refresh(router);
+  image(router);
 
   return router;
 };

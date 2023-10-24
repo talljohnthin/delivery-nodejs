@@ -55,9 +55,9 @@ export const updateStore = async (
 ) => {
   try {
     const { id } = req.params;
-    const { name, imageUrl, address } = req.body as IStore;
+    const { name, image, address } = req.body as IStore;
 
-    if (!name || !imageUrl || !address) {
+    if (!name || !image.public_id || !address) {
       return res.sendStatus(400);
     }
 
