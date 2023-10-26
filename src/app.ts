@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -7,6 +7,8 @@ import "dotenv/config";
 
 import router from "./routers";
 import openapiDoc from "./swagger";
+import errorHandler from "./controllers/error.controller";
+import CustomError from "./utils/customError";
 
 const PORT = process.env.PORT || 8000;
 
@@ -24,6 +26,16 @@ app.use(
 app.use("/api/", router());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapiDoc));
+
+app.all("*", (req: Request, res: Response, next: NextFunction) => {
+  const err = new CustomError(
+    `Can't find ${req.originalUrl} on the server!`,
+    404
+  );
+  next(err);
+});
+
+app.use(errorHandler);
 
 mongoose.set("strictQuery", false);
 mongoose
