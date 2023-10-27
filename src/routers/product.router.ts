@@ -1,5 +1,6 @@
 import express from "express";
 import isAuthenticated from "../middleware/isAuthenticated";
+import asyncMiddleware from "../controllers/async.controller";
 
 import {
   getAllProducts,
@@ -9,8 +10,8 @@ import {
 } from "../controllers/product.controller";
 
 export default (router: express.Router) => {
-  router.get("/products", getAllProducts);
-  router.post("/product", isAuthenticated, addProduct);
-  router.delete("/product/:id", isAuthenticated, deleteProduct);
-  router.patch("/product/:id", isAuthenticated, updateProduct);
+  router.get("/products", asyncMiddleware(getAllProducts));
+  router.post("/product", asyncMiddleware(addProduct));
+  router.delete("/product/:id", asyncMiddleware(deleteProduct));
+  router.patch("/product/:id", asyncMiddleware(updateProduct));
 };
