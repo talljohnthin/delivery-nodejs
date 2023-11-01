@@ -15,8 +15,8 @@ export default (router: express.Router) => {
 
   router.get("/categories", asyncMiddleware(getAllCategories));
   router.post("/category", asyncMiddleware(addCategory));
-  router.delete("/category/:id", asyncMiddleware(deleteCategory));
-  router.patch("/category/:id", asyncMiddleware(updateCategory));
+  router.delete("/categories/delete/:id", asyncMiddleware(deleteCategory));
+  router.patch("/categories/edit/:id", asyncMiddleware(updateCategory));
   router.get("/categories/:id", getCategoriesById);
 
 };
