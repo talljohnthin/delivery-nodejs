@@ -7,10 +7,11 @@ import {
   addTag,
 } from "../controllers/tag.controller";
 import isAuthenticated from "../middleware/isAuthenticated";
+import asyncMiddleware from "../controllers/async.controller";
 
 export default (router: express.Router) => {
-  router.get("/tags", getAllTags);
-  router.post("/tag", isAuthenticated, addTag);
-  router.delete("/tag/:id", isAuthenticated, deleteTag);
-  router.patch("/tag/:id", isAuthenticated, updateTag);
+  router.get("/tags", asyncMiddleware(getAllTags));
+  router.post("/tag", asyncMiddleware(addTag));
+  router.delete("/tag/:id", asyncMiddleware(deleteTag));
+  router.patch("/tag/:id", asyncMiddleware(updateTag));
 };
