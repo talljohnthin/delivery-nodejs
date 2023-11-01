@@ -1,6 +1,7 @@
 import express from "express";
 
 import {
+  getCategoriesById,
   getAllCategories,
   deleteCategory,
   updateCategory,
@@ -10,7 +11,8 @@ import isAuthenticated from "../middleware/isAuthenticated";
 
 export default (router: express.Router) => {
   router.get("/categories", getAllCategories);
-  router.post("/categories/create", isAuthenticated, addCategory);
+  router.get("/categories/:id", getCategoriesById);
+  router.post("/category/create", addCategory);
   router.delete("/category/:id", isAuthenticated, deleteCategory);
-  router.patch("/category/:id", isAuthenticated, updateCategory);
+  router.patch("/category/:id", updateCategory);
 };
