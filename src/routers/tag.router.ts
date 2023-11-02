@@ -13,6 +13,6 @@ export default (router: express.Router) => {
   router.get("/tags", asyncMiddleware(getAllTags));
   router.get("/tags/:id", asyncMiddleware(getTagsById));
   router.post("/tag/create", asyncMiddleware(addTag));
-  router.delete("/tag/:id", asyncMiddleware(deleteTag));
+  router.delete("/tag/delete/:id", asyncMiddleware(deleteTag));
   router.patch("/tags/edit/:id", asyncMiddleware(updateTag));
 };

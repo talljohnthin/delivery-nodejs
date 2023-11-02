@@ -10,8 +10,8 @@ import isAuthenticated from "../middleware/isAuthenticated";
 import asyncMiddleware from "../controllers/async.controller";
 
 export default (router: express.Router) => {
-  router.get("/Stores", asyncMiddleware(getAllStores));
-  router.post("/Store", asyncMiddleware(addStore));
-  router.delete("/Store/:id", asyncMiddleware(deleteStore));
-  router.patch("/Store/:id", asyncMiddleware(updateStore));
+  router.get("/stores", asyncMiddleware(getAllStores));
+  router.post("/store", asyncMiddleware(addStore));
+  router.delete("/store/:id", asyncMiddleware(deleteStore));
+  router.patch("/store/:id", asyncMiddleware(updateStore));
 };
